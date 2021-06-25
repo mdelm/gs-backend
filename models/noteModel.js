@@ -3,48 +3,36 @@ const Schema = mongoose.Schema
 
 const noteModel= new Schema({
 
-  matieres: [{
-    nom_matiere: {
-      type: String
-    },
-    examan: {
-      type: String
-    },
-    oral: {
-      type: String
-    },
-    moy_mat: {
-      type: String
-    },
-    coefficient: {
-      type: String
-    }
-  }],
-
-  nom_etudiant: {
-    type: String
-  },
-
-  nom_module: {
-    type: String
-  },
-
-  num_semestre: {
-    type: String
-  },
-
-  note_module: {
-    type: String
-  },
-
-  coefficient: {
-    type: String
-  },
-
-  etudiants: [{
+  matiere: {
     type: mongoose.Schema.Types.ObjectId,
-    ref:'etudiants' 
-  }]
+    ref:'etudiants'
+  },
+
+  note: {
+    type: String,
+    required: true
+  },
+
+  type_note: {
+    type: String,
+    required: true
+  },
+
+  annee_universitaire: {
+    type: String,
+    required: true
+  },
+
+  semestre: {
+    type: String,
+    required: true
+  },
+
+  etudiant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'etudiants',
+    required: true
+  }
 
     
 });

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
 const user = require('./userModel')
 
-const EtudModel = new Schema({
+const EtudiantModel = new Schema({
 
     matricule:{
         type:String, 
@@ -151,8 +151,8 @@ salle:[{
 })
  
   
-EtudModel.pre('save',function(next){
+EtudiantModel.pre('save',function(next){
     this.password=bcrypt.hashSync(this.password,10);
     next(); 
 });
-module.exports = user.discriminator('etuds',EtudModel);
+module.exports = user.discriminator('etudiant',EtudiantModel);

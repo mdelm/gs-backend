@@ -1,4 +1,4 @@
-const etudiantModel = require('../models/fff')
+const etudiantModel = require('../models/etudiantModel')
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');

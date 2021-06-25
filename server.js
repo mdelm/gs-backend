@@ -28,6 +28,7 @@ const emploisDeTempsRouter = require('./routers/emploisDeTempsRouter')
 const devoirRouter = require('./routers/devoirRouter')
 const noteRouter = require('./routers/noteRouter')
 const moygenerRouter = require('./routers/moygenerRouter')
+const classeRouter = require('./routers/classeRouter')
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false }))
@@ -54,6 +55,7 @@ app.use('/emplois',emploisDeTempsRouter)
 app.use('/devoirs',devoirRouter)
 app.use("/notes", noteRouter);
 app.use('/Moyy',moygenerRouter)
+app.use('/classe', classeRouter)
 
 
 app.get('/getfile/:image',function(req,res){
