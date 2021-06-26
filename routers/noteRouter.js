@@ -9,6 +9,10 @@ route.post("/addMultipleNotes", noteController.addMultipleNotes);
 
 route.get("/allNotes", noteController.getAllNotes);
 
+route.get("/classe/:nom_classe", noteController.getNotesByClasse);
+
+
+
 /*
 route.get("/getByEtudiant/:nom_etudiant", noteController.getNotesByEtudiant);
 

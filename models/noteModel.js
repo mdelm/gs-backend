@@ -32,6 +32,11 @@ const noteModel= new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref:'etudiants',
     required: true
+  },
+
+  classe: {
+    type: String,
+    required: true
   }
 
     

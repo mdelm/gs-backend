@@ -1,5 +1,8 @@
 const noteModel = require("../models/noteModel");
 const matiereModel = require("../models/matiereModel");
+const classeModel = require("../models/classeModel");
+const etudiantModel = require("../models/etudiantModel");
+const mongoose = require("mongoose");
 
 exports.addNote = async (req, res) => {
 	
@@ -48,4 +51,25 @@ exports.getAllNotes = (req, res) => {
 	noteModel.find({}, (err, notes) => {
 		res.json({message:'All Notes', status:200, data:notes});
 	});
+};
+
+exports.getNotesByClasse = async (req, res) => {
+
+	const notes = await noteModel.find({"classe": req.params.nom_classe});
+	const classe = (await classeModel.findOne({"nom_classe": req.params.nom_classe}))
+	const etudiants = await etudiantModel.find({"_id": {$in: classe.etudiants}});
+	const nt = etudiants.map(etudiant => ({ etudiant: etudiant, notes: []}));
+
+	for(let i = 0; i < notes.length; i++) {
+		let idx = nt.findIndex(e => ("" + e.etudiant._id) === ("" + notes[i].etudiant));
+		nt[idx].notes.push({
+			type_note: notes[i].type_note,
+			note: notes[i].note,
+			semestre: notes[i].semestre,
+			annee_universitaire: notes[i].annee_universitaire,
+			matiere: await matiereModel.findOne({"_id": notes[i].matiere})
+		});
+	}
+
+	res.json({ status: 200, data: nt });
 };

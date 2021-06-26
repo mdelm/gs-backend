@@ -1,6 +1,7 @@
 const classeModel = require('../models/classeModel');
 const matiereModel = require("../models/matiereModel");
 const etudiantModel = require("../models/etudiantModel");
+const noteModel = require("../models/noteModel");
 
 
 module.exports={
