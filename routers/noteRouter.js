@@ -11,6 +11,8 @@ route.get("/allNotes", noteController.getAllNotes);
 
 route.get("/classe/:nom_classe", noteController.getNotesByClasse);
 
+route.get("/moyenneGenerale/:nom_classe", noteController.getMoyenneGenerale);
+
 
 
 /*
