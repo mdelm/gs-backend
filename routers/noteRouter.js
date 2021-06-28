@@ -9,6 +9,8 @@ route.post("/addMultipleNotes", noteController.addMultipleNotes);
 
 route.get("/allNotes", noteController.getAllNotes);
 
+route.get("/classe/:nom_classe/:semestre/:annee_universitaire/:nom_matiere/:type_note", noteController.getNotesByClasseV2);
+
 route.get("/classe/:nom_classe", noteController.getNotesByClasse);
 
 route.get("/moyenneGenerale/:nom_classe", noteController.getMoyenneGenerale);

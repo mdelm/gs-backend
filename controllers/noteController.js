@@ -60,15 +60,15 @@ exports.addMultipleNotes = (req, res) => {
 	let notes = req.body;
 
 	notes.forEach(async note => {
-		let nt = await noteModel.findOne({
+		await noteModel.deleteOne({
 			etudiant: { _id: note.etudiant._id },
 			matiere: { _id: note.matiere._id },
 			type_note: note.type_note,
 			semestre: note.semestre,
 			annee_universitaire: note.annee_universitaire
 		});
-
-		if (nt === null) await noteModel.create(note);
+		
+		await noteModel.create(note);
 	});
 
 	res.json({status: 200});
@@ -104,10 +104,43 @@ exports.getNotesByClasse = async (req, res) => {
 		});
 	}
 
+	// Sort by semestre
 	for(let i = 0; i < nt.length; i++) nt[i].notes.sort(compareNotesBySemestre);
+
+	if (req.query.annee_universitaire !== "" && req.query.annee_universitaire !== undefined &&
+			req.query.type_note !== "" && req.query.type_note !== undefined &&
+			req.query.semestre !== "" && req.query.semestre !== undefined &&
+			req.query.nom_matiere !== "" && req.query.nom_matiere !== undefined) {
+
+		for(let e = 0; e < nt.length; e++) {
+			nt[e].notes = nt[e].notes.filter(note => note.type_note === req.query.type_note &&
+																							 note.semestre === req.query.semestre &&
+																							 note.annee_universitaire === req.query.annee_universitaire &&
+																							 note.nom_matiere === req.query.nom_matiere);
+		}
+
+	}
 
 	res.json({ status: 200, data: nt });
 };
+
+exports.getNotesByClasseV2 = async (req, res) => {
+
+	const matiere = await matiereModel.findOne({"nom": req.params.nom_matiere});
+
+	console.log(matiere);
+
+	const notes = await noteModel.find({
+		"classe": req.params.nom_classe,
+		"semestre": req.params.semestre,
+		"annee_universitaire": req.params.annee_universitaire,
+		"matiere": matiere._id,
+		"type_note": req.params.type_note
+	})
+
+	res.json({ status: 200 });
+
+}
 
 exports.getMoyenneGenerale = async (req, res) => {
 
@@ -188,6 +221,8 @@ exports.getMoyenneGenerale = async (req, res) => {
 
 				if (parseFloat(nt[e].moyenne_generale) >= 10) {
 					nt[e].deliberation = "admis";
+				} else if (parseFloat(nt[e].moyenne_generale) >= 9.85 && parseFloat(nt[e].moyenne_generale) <= 9.99) {
+					nt[e].deliberation = "rachat";
 				} else {
 					nt[e].deliberation = "redouble";
 				}
