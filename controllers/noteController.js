@@ -5,6 +5,33 @@ const etudiantModel = require("../models/etudiantModel");
 const moyenneGeneraleModel = require("../models/moyenneGeneraleModel");
 const mongoose = require("mongoose");
 
+
+function groupBy(collection, property) {
+    var i = 0, val, index,
+        values = [], result = [];
+    for (; i < collection.length; i++) {
+        val = collection[i][property];
+        index = values.indexOf(val);
+        if (index > -1)
+            result[index].push(collection[i]);
+        else {
+            values.push(val);
+            result.push([collection[i]]);
+        }
+    }
+    return result;
+}
+
+function compareNotesBySemestre(note1, note2) {
+	if (parseFloat(note1.semestre) < parseFloat(note2.semestre)) {
+		return -1;
+	}
+	if (parseFloat(note1.semestre) > parseFloat(note2.semestre)) {
+		return 1;
+	}
+	return 0;
+}
+
 exports.addNote = async (req, res) => {
 	
 	let note = await noteModel.findOne({
@@ -55,23 +82,6 @@ exports.getAllNotes = (req, res) => {
 };
 
 
-function groupBy(collection, property) {
-    var i = 0, val, index,
-        values = [], result = [];
-    for (; i < collection.length; i++) {
-        val = collection[i][property];
-        index = values.indexOf(val);
-        if (index > -1)
-            result[index].push(collection[i]);
-        else {
-            values.push(val);
-            result.push([collection[i]]);
-        }
-    }
-    return result;
-}
-
-
 exports.getNotesByClasse = async (req, res) => {
 
 	const notes = await noteModel.find({"classe": req.params.nom_classe});
@@ -93,6 +103,8 @@ exports.getNotesByClasse = async (req, res) => {
 			nom_matiere: matiere.nom
 		});
 	}
+
+	for(let i = 0; i < nt.length; i++) nt[i].notes.sort(compareNotesBySemestre);
 
 	res.json({ status: 200, data: nt });
 };
