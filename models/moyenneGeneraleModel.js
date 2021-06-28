@@ -3,6 +3,21 @@ const Schema = mongoose.Schema
 
 const MoyenneGeneraleModel= new Schema({
 
+  matricule: {
+    type: String,
+    required: true
+  },
+
+  nom: {
+    type: String,
+    required: true
+  },
+
+  prenom: {
+    type: String,
+    required: true
+  },
+
   deliberation: {
     type: String,
     required: true

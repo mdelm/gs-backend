@@ -237,6 +237,9 @@ exports.getMoyenneGenerale = async (req, res) => {
 
 				if (!moyenneGen) {
 					moyenneGeneraleModel.create({
+						matricule: nt[e].etudiant.matricule,
+						nom: nt[e].etudiant.nom,
+						prenom: nt[e].etudiant.prenom,
 						etudiant: nt[e].etudiant._id,
 						classe: req.params.nom_classe,
 						annee_universitaire: "2020/2021",
@@ -255,3 +258,17 @@ exports.getMoyenneGenerale = async (req, res) => {
 	res.json({ status: 200, data: nt });
 
 };
+
+exports.getListeEtudiantsRachte = async (req, res) => {
+
+	const liste = await moyenneGeneraleModel.find({ 
+		"classe": req.params.nom_classe, 
+		"annee_universitaire": req.query.annee_universitaire,
+		"deliberation": "admis"
+	});
+
+	
+
+	res.json({ status: 200, data: liste });
+
+}
