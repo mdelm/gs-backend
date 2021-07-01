@@ -8,7 +8,8 @@ const app=express()
 
 const cors = require('cors')
 
-
+const path = require("path");
+const fs = require("fs");
 const pdf = require('html-pdf');
 const pdfTemplate = require('./documents/index');
 
@@ -29,6 +30,7 @@ const devoirRouter = require('./routers/devoirRouter')
 const noteRouter = require('./routers/noteRouter')
 const moygenerRouter = require('./routers/moygenerRouter')
 const classeRouter = require('./routers/classeRouter')
+const fileRouter = require("./routers/fileRouter");
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false }))
@@ -56,6 +58,7 @@ app.use('/devoirs',devoirRouter)
 app.use("/notes", noteRouter);
 app.use('/Moyy',moygenerRouter)
 app.use('/classe', classeRouter)
+app.use("/f", fileRouter);
 
 
 app.get('/getfile/:image',function(req,res){

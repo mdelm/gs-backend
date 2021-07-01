@@ -1,0 +1,114 @@
+<html>
+  <head>
+    <meta charset="utf8">
+    <title>SuitArt Business Card</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        font-weight: 500;
+        font-size: 7px;
+        background: rgb(241,241,241);
+        -webkit-print-color-adjust: exact;
+        box-sizing: border-box;
+      }
+
+      .page {
+        position: relative;
+      }
+
+      table {
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      table caption {
+        font-size: 38px;
+        margin: 32px 0;
+      }
+
+      th {
+        padding: 4px 8px;
+        width: 100px;
+        background: #164475;
+        color: #fff;
+        border-bottom: solid 1px #ddd;
+        font-weight: bold;
+      }
+
+      tbody tr:nth-child(odd) {
+        background: #f5f5f5;
+        border: solid 1px #ddd;
+      }
+
+      tbody tr:nth-child(even) {
+        background: #e5e5e5;
+        border: solid 1px #ddd;
+      }
+
+      tbody td {
+        padding: 6px 8px;
+      }
+    </style>  
+  </head>
+  <body>
+    <div class="page">
+
+      <table>
+        <thead>
+          <caption>List des étudiants rachté - {{note_classe}}</caption>
+          <tr>
+            <th>Matricule</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Annee Univ.</th>
+            <th>Note S1</th>
+            <th>Note S2</th>
+            <th>MG</th>
+          </tr>
+        </thead>
+        {{tbody}}
+        <!--<tbody>
+          <tr>
+            <td>ETUD001</td>
+            <td>ETUD001</td>
+            <td>ETUD001</td>
+            <td>2020/2021</td>
+            <td>12.62</td>
+            <td>13.32</td>
+            <td>11.85</td>
+          </tr>
+          <tr>
+            <td>ETUD001</td>
+            <td>ETUD001</td>
+            <td>ETUD001</td>
+            <td>2020/2021</td>
+            <td>12.62</td>
+            <td>13.32</td>
+            <td>11.85</td>
+          </tr>
+          <tr>
+            <td>ETUD001</td>
+            <td>ETUD001</td>
+            <td>ETUD001</td>
+            <td>2020/2021</td>
+            <td>12.62</td>
+            <td>13.32</td>
+            <td>11.85</td>
+          </tr>
+          <tr>
+            <td>ETUD001</td>
+            <td>ETUD001</td>
+            <td>ETUD001</td>
+            <td>2020/2021</td>
+            <td>12.62</td>
+            <td>13.32</td>
+            <td>11.85</td>
+          </tr>
+        </tbody>-->
+      </table>
+      
+    </div>
+  </body>
+</html>
