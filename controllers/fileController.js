@@ -6,16 +6,19 @@ const nodemailer = require("nodemailer");
 
 exports.sendListeEtudiantsRachte = (req, res) => {
 	let transporter = nodemailer.createTransport({
-		service: "gmail",
+		host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
 		auth: {
-			user: "hajjihajji789@gmail.com",
-			pass: "MAMIPAPI2018"
+			user: "noah.dusseldorf@gmail.com",
+			pass: "ivqkiqvlrlyebjay"
 		}
 	});
 
 	let mailContent = {
-		from: "Thouraya Hajji <hajjihajji789@gmail.com>",
-		to: "Thouraya <hajjihajji789@gmail.com>",
+		from: "noah.dusseldorf@gmail.com",
+		to: "elmehammedi.mohamed@gmail.com",
 		subject: "Liste Des Etudiants Racheté",
 		text: "Liste des étudiants racheté.",
 		html: "<h1>You can send html formatted content using Nodemailer with attachments</h1>",
@@ -29,6 +32,7 @@ exports.sendListeEtudiantsRachte = (req, res) => {
 
 	transporter.sendMail(mailContent, (err, data) => {
 		if (err) {
+			console.log(err);
 			res.json({ message: "Unable to send mail", status: 500 });
 		} else {
 			res.json({ message: "Email send successfully", status: 200 });
