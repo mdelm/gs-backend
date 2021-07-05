@@ -63,9 +63,12 @@ module.exports={
     getAllMatieres: async function(req, res) {
         let classe = await classeModel.findOne({ nom_classe: req.params.nom_classe });
         if (classe !== null) {
+            const matieres = (await matiereModel.find({ "_id": { $in: classe.matieres } }))
+                .filter(matiere => matiere.semestre === req.query.semestre);
+
             res.json({ 
                 status: 200, 
-                data: await matiereModel.find({ "_id": { $in: classe.matieres } }) 
+                data: matieres
             });
         } else {
             res.json({message: "Classe not found", status: 404, data: null});

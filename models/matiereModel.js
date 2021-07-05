@@ -24,6 +24,10 @@ note_exams:{
   type : String,
   required: true
 },
+semestre:{
+  type : String,
+  required: true
+},
 absence:[{
   type: mongoose.Schema.Types.ObjectId,
   ref:'absence' 
