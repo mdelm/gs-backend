@@ -85,7 +85,20 @@ module.exports={
         } else {
             res.json({message: "Classe not found", status: 404, data: null});
         }
+    },
+
+    findClasseByEtudiant: async function(req, res) {
+        let classes = await classeModel.find();
+        let classe = null;
+        console.log(req.params.id);
+
+        for(let i = 0; i < classes.length; i++) {
+            if (classes[i].etudiants.includes(req.params.id)) {
+                classe = classes[i];
+                break;
+            }
+        }
+
+        res.json({ status: 404, data: classe });
     }
-
-
 }

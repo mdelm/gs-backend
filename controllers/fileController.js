@@ -107,3 +107,57 @@ exports.createListeEtudiantsRachte = async (req, res) => {
     res.json({ message: "File created successfully", status: 200, data: [] });
   });
 };
+
+exports.fetchFormulaireDemandeDeStage = (req, res) => {
+	const { etudiant, classe, annee, societe } = req.query;
+	const demande_path = path.join(
+		path.dirname(process.mainModule.filename), 
+		"documents",
+		"formulaire-demande-de-stage",
+		`formulaire-demande-de-stage-${etudiant.replace(" ", "-")}-${classe}-${annee.replace("/", "")}.pdf`
+	);
+
+	res.sendFile(demande_path);
+};
+
+exports.createFormulaireDemandeDeStage = async (req, res) => {
+	const { etudiant, classe, annee, societe } = req.query;
+
+	console.log(etudiant, classe, annee, societe);
+
+	const template = path.join(
+		path.dirname(process.mainModule.filename), 
+		"documents",
+		"formulaire-demande-de-stage",
+		"index.html"
+	);
+	const filename = template.replace(
+		"index.html", 
+		`formulaire-demande-de-stage-${etudiant.replace(" ", "-")}-${classe}-${annee.replace("/", "")}.pdf`
+	);
+	let templateHtml = fs.readFileSync(template, 'utf8');
+
+	templateHtml = templateHtml.replace("{{societe}}", societe);
+	templateHtml = templateHtml.replace("{{etudiant}}", etudiant);
+	templateHtml = templateHtml.replace("{{classe}}", classe);
+	templateHtml = templateHtml.replace("{{annee}}", annee);
+
+	if (fs.existsSync(filename)) {
+		try {
+			fs.unlinkSync(filename);
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
+	const options = {};
+
+	pdf
+  .create(templateHtml, options)
+  .toFile(filename, function (err, pdf) {
+    if(err) {
+      res.json({ message: "There has been an error while create this file", status: 500, data: [] });
+    }
+    res.json({ message: "File created successfully", status: 200, data: [] });
+  });
+};

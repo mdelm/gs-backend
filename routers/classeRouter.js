@@ -14,6 +14,8 @@ route.put('/updateClasse/:id',classeController.updateClasse)
 
 route.delete('/classedeleteById/:id', classeController.deleteClasse)
 
+route.get('/findClasseByEtudiant/:id', classeController.findClasseByEtudiant);
+
 route.get("/:nom_classe/matieres", classeController.getAllMatieres);
 route.get("/:nom_classe/etudiants", classeController.getAllEtudiants);
 

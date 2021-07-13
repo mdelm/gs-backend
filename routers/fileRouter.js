@@ -8,4 +8,8 @@ route.get('/getListeEtudiantsRachte/:nom_classe', fileController.fetchListeEtudi
 
 route.post('/sendListeEtudiantsRachte/:nom_classe', fileController.sendListeEtudiantsRachte);
 
+route.post('/createFormulaireDemandeDeStage', fileController.createFormulaireDemandeDeStage);
+
+route.get('/fetchFormulaireDemandeDeStage', fileController.fetchFormulaireDemandeDeStage);
+
 module.exports = route;

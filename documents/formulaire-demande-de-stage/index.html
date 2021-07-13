@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Formulaire Demande de Stage</title>
+	<style type="text/css">
+		.page {
+			border: 0px solid red;
+			width: 800px;
+			margin: 0 auto;
+			font-family: sans-serif;
+			background: #EFEFEF;
+			padding: 32px 0;
+		}
+
+		p.para {
+			text-indent: 24px;
+			font-size: 12px;
+		}
+
+		.signature {
+			width: 200px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		.container {
+			margin: 0 32px;
+			border: 0px solid red;
+		}
+
+		.title {
+			font-size: 24px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.nom-societe {
+			color: darkblue;
+			margin-bottom: 40px;
+		}
+	</style>
+</head>
+<body>
+	<div class="page">
+		<div class="container">
+			<p class="title">A L'ATTENTION DU DIRECTEUR<br/>DE LA FORMATION DE LA SOCIETE</p>
+			<p class="title nom-societe">{{societe}}</p>
+			<p><strong>Object: Demande de Stage de fin d'étude</strong></p>
+			<p class="para">
+				L'institut Supérieur des Etudes Technologiques de Sousse assure depuis un certain nombre
+				d'années une formation en licences devant etre consolidée par un stage d'initiation a la vie professionnelle 
+				en entreprise et ce, dans le cadre de l'ouverture de notre institution universitaire sur son environnement socio-économique.
+			</p>
+
+			<p class="para">
+				Nous venons donc, par la présente, vous demander de bien vouloir acceullir, au sein de votre entreprise, l'étudiant(e) <strong>{{etudiant}}</strong> 
+				inscrit(e) au cours de l'année universitaire <strong>{{annee}}</strong> en troisiéme année de la <strong>{{classe}}</strong>
+				Ce stage obligatoire est prévu pour durer trois mois, du 15 Février au 05 Juin 2021.
+			</p>
+
+			<p class="para">
+				Nous vous signalons, que durant la période de stage, l'étudiant(e) est couvert(e) par la Mutuelle Accident Scolaire et Universitaire-MASU.
+			</p>
+
+			<p class="para">
+				Nous vous prions, en cas de réponse positive, de bien vouloir remplir la fiche de stage ci-dessous et la remettre a l'étudiant(e) au la retourner par email
+				a l'adresse suivante : admin@isetso.rnu.tn, et ce afin de preparer le lettre d'affectation du stagiaire.
+			</p>
+
+			<p class="para">
+				En vous remecriant pour votre collaboration, nous vous adressons, Madame, Monsieur, l'expression de notre respect.
+			</p>
+			<hr type="doted"/>
+			<h2><center>Fiche de Stage</center></h2>
+			<h4><center>(A remplir avec la plus grande précision car ces informations seront utilisées dans toutes les correspondances offcielles)</center></h4>
+			<p><strong>Entreprise :</strong></p>
+			<hr/>
+			<p><strong>Département / service :</strong></p>
+
+			<p><strong>Le responsable direct du stagiaire :</strong></p>
+			<hr/>
+			<p><strong>Email du responsable direct du stagiaire :</strong></p>
+
+			<p><strong>Stage prévu du : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; au : </strong></p>
+			<hr/>
+			<p><strong>Addresse :</strong></p>
+
+			<p><strong>Fax :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+			Tél :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp; 
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			Email Entreprise :</strong></p>
+			<hr/>
+			<table border="0" style="width: 100%; margin-top: 32px; margin-bottom: 52px;">
+				<tr>
+					<td style="width: 50%;">
+						<div class="signature">
+							Signature et cachet du Premier Responsable de l'Entreprise
+						</div>
+					</td>
+					<td style="width: 50%;">
+						<div class="signature">
+							Directeur des Stages : <br/>Walid HOUCINE
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
