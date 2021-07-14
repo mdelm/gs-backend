@@ -122,9 +122,6 @@ exports.fetchFormulaireDemandeDeStage = (req, res) => {
 
 exports.createFormulaireDemandeDeStage = async (req, res) => {
 	const { etudiant, classe, annee, societe } = req.query;
-
-	console.log(etudiant, classe, annee, societe);
-
 	const template = path.join(
 		path.dirname(process.mainModule.filename), 
 		"documents",
