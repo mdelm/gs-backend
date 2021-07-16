@@ -32,6 +32,7 @@ const moygenerRouter = require('./routers/moygenerRouter')
 const classeRouter = require('./routers/classeRouter')
 const fileRouter = require("./routers/fileRouter");
 const stageRouter = require("./routers/stageRouter");
+const entrepriseRouter = require("./routers/entrepriseRouter");
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false }))
@@ -61,6 +62,7 @@ app.use('/Moyy',moygenerRouter)
 app.use('/classe', classeRouter)
 app.use("/f", fileRouter);
 app.use("/stages", stageRouter);
+app.use("/entreprises", entrepriseRouter);
 
 
 app.get('/getfile/:image',function(req,res){
