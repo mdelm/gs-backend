@@ -73,7 +73,37 @@ exports.getSoutenancesByEtudiant = async (req, res) => {
 				.filter(st => st.binome.includes(req.params.etud_id))
 				.filter(st => st.soutenance.date_de_soutenance);
 
-	res.json({ status: 200, data: stages });
+	const data = [];
+
+	for(let i = 0; i < stages.length; i++) {
+		const soutenance = {
+		 	...stages[i].soutenance,
+		 	jurys: await enseignantModel.find({ _id: { $in: stages[i].soutenance.jurys } }),
+		 	salle: await salleModel.findOne({ _id: stages[i].soutenance.salle })
+		};
+
+		data.push({
+			_id: stages[i]._id,
+			sujet: stages[i].sujet,
+			description: stages[i].description,
+			date_debut: stages[i].date_debut,
+			date_fin: stages[i].date_fin,
+			nom_entreprise: stages[i].nom_entreprise,
+			adresse_entreprise: stages[i].adresse_entreprise,
+			fax_entreprise: stages[i].fax_entreprise,
+			telephone_entreprise: stages[i].telephone_entreprise,
+			email_entreprise: stages[i].email_entreprise,
+			encadrant_professionnel: stages[i].encadrant_professionnel,
+			type_stage: stages[i].type_stage,
+			email_encadrant_professionnel: stages[i].email_encadrant_professionnel,
+			binome: await etudiantModel.find({ _id: { $in: stages[i].binome } }),
+			encadrant_universitaire_principale: await enseignantModel.findOne({ _id: stages[i].encadrant_universitaire_principale }),
+			co_encadreur: await enseignantModel.find({ _id: { $in: stages[i].co_encadreur } }),
+			soutenance: soutenance
+		});
+	}
+
+	res.json({ status: 200, data: data });
 };
 
 exports.getStage = async (req, res) => {
