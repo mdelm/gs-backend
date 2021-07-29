@@ -4,7 +4,7 @@ const pdf = require('html-pdf');
 const moyenneGeneraleModel = require("../models/moyenneGeneraleModel");
 const nodemailer = require("nodemailer");
 
-exports.sendListeEtudiantsRachte = (req, res) => {
+const sendEmail = (to, subject, text, html, attachments) => {
 	let transporter = nodemailer.createTransport({
 		host: 'smtp.gmail.com',
     port: 587,
@@ -18,25 +18,43 @@ exports.sendListeEtudiantsRachte = (req, res) => {
 
 	let mailContent = {
 		from: "noah.dusseldorf@gmail.com",
-		to: "elmehammedi.mohamed@gmail.com",
-		subject: "Liste Des Etudiants Racheté",
-		text: "Liste des étudiants racheté.",
-		html: "<h1>You can send html formatted content using Nodemailer with attachments</h1>",
-		attachments: [
+		to: to,
+		subject: subject,
+		text: text,
+		html: html,
+		attachments: attachments
+	};
+
+	const willSendEmail = new Promise((resolve, reject) => {
+		transporter.sendMail(mailContent, (err, data) => {
+			if (!err) {
+				resolve(data);
+			} else {
+				reject(err);
+			}
+		});
+	});
+
+	return willSendEmail;
+};
+
+exports.sendListeEtudiantsRachte = (req, res) => {
+	sendEmail(
+		"elmehammedi.mohamed@gmail.com",
+		"Liste Etudiants Racheté",
+		"Liste Etudiants Racheté",
+		"<h1>You can send html formatted content using Nodemailer with attachments</h1>",
+		[
 			{
 				filename: "liste.pdf",
 				path: path.join(path.dirname(process.mainModule.filename), "documents", "liste-etudiants-rachate", `liste-${req.params.nom_classe.replace(".", "")}-${req.query.annee_universitaire.replace("/", "_")}.pdf`)
 			}
 		]
-	};
-
-	transporter.sendMail(mailContent, (err, data) => {
-		if (err) {
-			console.log(err);
-			res.json({ message: "Unable to send mail", status: 500 });
-		} else {
-			res.json({ message: "Email send successfully", status: 200 });
-		}
+	)
+	.then(data => res.json({ message: "Email send successfully", status: 200 }))
+	.catch(err => {
+		console.log(err);
+		res.json({ message: "Unable to send mail", status: 500 });
 	});
 };
 
@@ -154,7 +172,25 @@ exports.createFormulaireDemandeDeStage = async (req, res) => {
   .toFile(filename, function (err, pdf) {
     if(err) {
       res.json({ message: "There has been an error while create this file", status: 500, data: [] });
+    } else {
+    	sendEmail(
+				"elmehammedi.mohamed@gmail.com",
+				"Formulaire Demande De Stage",
+				"Formulaire Demande De Stage",
+				"<h1>You can send html formatted content using Nodemailer with attachments</h1>",
+				[
+					{
+						filename: "demande.pdf",
+						path: path.join(path.dirname(process.mainModule.filename), "documents", "formulaire-demande-de-stage", `formulaire-demande-de-stage-${etudiant.replace(" ", "-")}-${classe}-${annee.replace("/", "")}.pdf`)
+					}
+				]
+			)
+			.then(data => res.json({ message: "Email send successfully", status: 200 }))
+			.catch(err => {
+				console.log(err);
+				res.json({ message: "Unable to send mail", status: 500 });
+			});
+			res.json({ message: "File created successfully", status: 200, data: [] });
     }
-    res.json({ message: "File created successfully", status: 200, data: [] });
   });
 };

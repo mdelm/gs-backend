@@ -46,9 +46,32 @@ const stageModel = new Schema({
 		type: String,
 		required: true
 	},
+	type_stage: {
+		type: String,
+		required: true
+	},
 	email_encadrant_professionnel: {
 		type: String,
 		required: true
+	},
+	soutenance: {
+		date_de_soutenance: {
+			type: String
+		},
+		salle: {
+			type: Schema.Types.ObjectId,
+			ref: "salle"
+		},
+		jurys: [{
+			type: Schema.Types.ObjectId,
+			ref: "enseingnant"
+		}],
+		repport_pdf: {
+			type: String
+		},
+		page_de_garde: {
+			type: String
+		}
 	},
 	encadrant_universitaire_principale: {
 		type: mongoose.Schema.Types.ObjectId,
