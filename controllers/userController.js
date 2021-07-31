@@ -38,7 +38,7 @@ module.exports={
     },
     
         
-    updateUser:function(req,res){
+    updateUser: function(req,res) {
         userModel.updateOne({_id: req.params.id},req.body,function(err,user){
             if(err){
                 res.json({message:'user is not updated',status:500,data:null})
@@ -49,7 +49,24 @@ module.exports={
 
     },
 
-    
+    updateUserV2: async function(req, res) {
+        const usr = await userModel.findOne({ _id: req.body._id });
+        if (usr) {
+            if (usr.nom !== req.body.nom) await usr.updateOne({ $set: { nom: req.body.nom } });
+            if (usr.prenom !== req.body.prenom) await usr.updateOne({ $set: { prenom: req.body.prenom } });
+            if (usr.date_naissance !== req.body.date_naissance) await usr.updateOne({ $set: { date_naissance: req.body.date_naissance } });
+            if (usr.lieu_naissance !== req.body.lieu_naissance) await usr.updateOne({ $set: { lieu_naissance: req.body.lieu_naissance } });
+            if (usr.adresse !== req.body.adresse) await usr.updateOne({ $set: { adresse: req.body.adresse } });
+            if (usr.email !== req.body.email) await usr.updateOne({ $set: { email: req.body.email } });
+            if (usr.gsm !== req.body.gsm) await usr.updateOne({ $set: { gsm: req.body.gsm } });
+            if (usr.emailParent !== req.body.emailParent) await usr.updateOne({ $set: { emailParent: req.body.emailParent } });
+            
+            res.json({ message: 'user is updated', status: 200, data: usr });
+        } else {
+            res.json({ message:'user is not updated', status:500,data:null });
+        }
+    },
+
     deleteUsers:function(req,res){
         userModel.deleteOne({_id: req.params.id},function(err,user){
             if(err){

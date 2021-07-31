@@ -12,6 +12,8 @@ route.get('/UserbyId/:id', userController.getOneUser)
 
 route.put('/updateUser/:id',userController.updateUser)
 
+route.put('/v2/updateUser',userController.updateUserV2)
+
 route.delete('/UserdeleteById/:id', userController.deleteUsers)
 
 route.delete('/DeleteAll', userController.deleteAll)
