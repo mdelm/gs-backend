@@ -87,7 +87,7 @@ exports.getNotesByClasse = async (req, res) => {
 	const notes = await noteModel.find({"classe": req.params.nom_classe});
 	const classe = (await classeModel.findOne({"nom_classe": req.params.nom_classe}))
 	const etudiants = await etudiantModel.find({"_id": {$in: classe.etudiants}});
-	const nt = etudiants.map(etudiant => ({ etudiant: etudiant, notes: []}));
+	let nt = etudiants.map(etudiant => ({ etudiant: etudiant, notes: []}));
 
 	for(let i = 0; i < notes.length; i++) {
 		let idx = nt.findIndex(e => ("" + e.etudiant._id) === ("" + notes[i].etudiant));
@@ -121,6 +121,13 @@ exports.getNotesByClasse = async (req, res) => {
 
 	}
 
+	// fetch one etudiant
+	if (req.query.id_etud) {
+		const etud = await etudiantModel.findOne({ _id: req.query.id_etud });
+		const nt_etud = nt.filter(nte => (""+nte.etudiant._id) === (""+etud._id));
+		if (nt_etud.length != 0) nt = nt_etud[0];
+	}
+
 	res.json({ status: 200, data: nt });
 };
 
@@ -147,7 +154,7 @@ exports.getMoyenneGenerale = async (req, res) => {
 	const notes = await noteModel.find({"classe": req.params.nom_classe});
 	const classe = (await classeModel.findOne({"nom_classe": req.params.nom_classe}))
 	const etudiants = await etudiantModel.find({"_id": {$in: classe.etudiants}});
-	const nt = etudiants.map(etudiant => ({ 
+	let nt = etudiants.map(etudiant => ({ 
 		etudiant: etudiant, 
 		notes: [], 
 		note_semestre1: 0, 
@@ -252,6 +259,20 @@ exports.getMoyenneGenerale = async (req, res) => {
 			}
 		}
 
+	}
+
+	// fetch one etudiant
+	if (req.query.id_etud) {
+		const etud = await etudiantModel.findOne({ _id: req.query.id_etud });
+		const nt_etud = nt.filter(nte => (""+nte.etudiant._id) === (""+etud._id));
+		if (nt_etud.length != 0) {
+			nt = {
+				note_semestre1: nt_etud[0].note_semestre1,
+        note_semestre2: nt_etud[0].note_semestre2,
+        moyenne_generale: nt_etud[0].moyenne_generale,
+        deliberation: nt_etud[0].deliberation 
+			};
+		}
 	}
 
 	// nt[etudiant].notes[semestre][matiere][ds[0]/exam[1]]
