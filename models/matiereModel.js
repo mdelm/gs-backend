@@ -14,15 +14,13 @@ libelle:{
 },
 note_ds:{
   type : String,
-  required: true
 },
 coef:{
   type : String,
   required: true
 },
 note_exams:{
-  type : String,
-  required: true
+  type : String
 },
 semestre:{
   type : String,

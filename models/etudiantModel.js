@@ -92,8 +92,7 @@ const EtudiantModel = new Schema({
     },
 
     parent:{
-        type:String,
-         required:true
+        type:String
     }, 
 
     gsm:{
@@ -113,13 +112,11 @@ const EtudiantModel = new Schema({
     }, 
   
     moyenne:{
-        type:String,
-         required:true
+        type:String
     }, 
 
     Groupe:{
-        type:String,
-        required: true
+        type:String
     },
 
     emailParent:{
