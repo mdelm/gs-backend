@@ -59,10 +59,14 @@ exports.addMultipleNotes = (req, res) => {
 
 	let notes = req.body;
 
+	// console.log(req.body[0]);
+
+	// return res.json({ status: 200 });
+
 	notes.forEach(async note => {
 		await noteModel.deleteOne({
-			etudiant: { _id: note.etudiant._id },
-			matiere: { _id: note.matiere._id },
+			etudiant: note.etudiant,
+			matiere: note.matiere,
 			type_note: note.type_note,
 			semestre: note.semestre,
 			annee_universitaire: note.annee_universitaire
