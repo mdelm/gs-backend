@@ -24,7 +24,7 @@ exports.uploadRapport = async (req, res) => {
 					console.log(err);
 					res.json({ status: 500 });
 				} else {
-					console.log(rapport);
+					// console.log(rapport);
 					return res.json({ status: 201, message: "File uploaded successfully", data: rapport });
 				}
 			});

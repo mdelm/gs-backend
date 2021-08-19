@@ -77,10 +77,10 @@ email:{
 
 
 
-departement:[{
+departement:{
     type: mongoose.Schema.Types.ObjectId,
     ref:'departement' 
-}],
+},
 
 matiere:[{
     type: mongoose.Schema.Types.ObjectId,

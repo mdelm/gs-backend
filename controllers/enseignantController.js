@@ -1,4 +1,4 @@
-const enseignantModel = require('../models/enseignantModel')
+const enseignantModel = require('../models/enseignantModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
