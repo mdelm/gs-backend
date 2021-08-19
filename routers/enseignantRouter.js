@@ -1,6 +1,5 @@
 const express = require('express');
 const enseignantController = require('../controllers/enseignantController');
-const upload =require('../middlware/upload')
 
 const route = express.Router()
 route.post('/AddEnseignant', enseignantController.createEnseignant)

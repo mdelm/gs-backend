@@ -1,6 +1,5 @@
 const express = require('express');
 const AdminController = require('../controllers/adminController');
-const upload =require('../middlware/upload')
 
 const route = express.Router()
 route.post('/AddAdmin', AdminController.createAdmin)
