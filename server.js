@@ -34,6 +34,7 @@ const fileRouter = require("./routers/fileRouter");
 const stageRouter = require("./routers/stageRouter");
 const entrepriseRouter = require("./routers/entrepriseRouter");
 const rapportRouter = require("./routers/rapportRouter");
+const attestationRouter = require("./routers/attestationRouter");
 
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: false }))
@@ -63,6 +64,7 @@ app.use("/f", fileRouter);
 app.use("/stages", stageRouter);
 app.use("/entreprises", entrepriseRouter);
 app.use("/rapport", rapportRouter);
+app.use("/attestation", attestationRouter);
 
 
 app.get('/getfile/:image',function(req,res){

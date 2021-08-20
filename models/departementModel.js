@@ -9,10 +9,9 @@ const departementModel = new Schema({
     },
 
     responsableDepartement:{
-        type:String,
-        required:true
-        //champ obligatoire
-      
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "enseingnant",
+        required: false
     },
 
     libelle:{
