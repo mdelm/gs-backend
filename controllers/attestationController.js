@@ -5,14 +5,66 @@ const departementModel = require("../models/departementModel");
 const path = require("path");
 const fs = require("fs");
 const pdf = require('html-pdf');
+const nodemailer = require("nodemailer");
+
+const sendEmail = (to, subject, text, html, attachments) => {
+	let transporter = nodemailer.createTransport({
+		host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+		auth: {
+			user: "noah.dusseldorf@gmail.com",
+			pass: "ivqkiqvlrlyebjay"
+		}
+	});
+
+	let mailContent = {
+		from: "noah.dusseldorf@gmail.com",
+		to: to,
+		subject: subject,
+		text: text,
+		html: html,
+		attachments: attachments
+	};
+
+	const willSendEmail = new Promise((resolve, reject) => {
+		transporter.sendMail(mailContent, (err, data) => {
+			if (!err) {
+				resolve(data);
+			} else {
+				reject(err);
+			}
+		});
+	});
+
+	return willSendEmail;
+};
 
 exports.postDemande = (req, res) => {
-	attestationModel.create(req.body, (attestation, err) => {
+	attestationModel.create(req.body, async (attestation, err) => {
 		if (err) {
 			console.log(err);
 			res.json({ message: "demande d'attestation could not be created", status: 500, data: "" });
 		} else {
-			res.json({ message: "demande d'attestation created successfully", status: 201, data: attestation });
+
+			const ancadreur = await enseignantModel.findOne({ _id: attestation.ancadreur });
+			const chef_departement = await attestationModel.findOne({ _id: attestation.chef_departement })
+
+			sendEmail(
+				[ancadreur.email, chef_departement.email],
+				"demande d'attestation",
+				"demande d'attestation",
+				"<h1>You can send html formatted content using Nodemailer with attachments</h1>",
+				[]
+			)
+			.then(data => {
+				res.json({ message: "demande d'attestation created successfully", status: 201, data: attestation });
+			})
+			.catch(err => {
+				console.log(err);
+				res.json({ message: "Unable to send mail", status: 500 });
+			});
 		}
 	});
 };
