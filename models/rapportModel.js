@@ -17,6 +17,10 @@ const rapportModel = new Schema({
 	departement: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'departement'
+	},
+	stage: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "stage"
 	}
 });
 

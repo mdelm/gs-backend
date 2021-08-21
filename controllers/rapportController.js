@@ -1,6 +1,7 @@
 const rapportModel = require("../models/rapportModel");
 const etudiantModel = require("../models/etudiantModel");
 const departementModel = require("../models/departementModel");
+const stageModel = require("../models/stageModel");
 const path = require("path");
 
 exports.uploadRapport = async (req, res) => {
@@ -12,13 +13,15 @@ exports.uploadRapport = async (req, res) => {
 
 		const etudiant = await etudiantModel.findOne({ _id: req.query.etudId });
 		const departement = await departementModel.findOne({ _id: req.query.depId });
+		const stage = await stageModel.findOne({ _id: req.query.stageId });
 
-		if (etudiant && departement) {
+		if (etudiant && departement && stage) {
 			rapportModel.create({ 
 				nom: file.originalname, 
 				filename: file.filename, 
 				etudiant: etudiant._id,
 				departement: departement._id,
+				stage: stage._id
 			}, (rapport, err) => {
 				if (err) {
 					console.log(err);
