@@ -106,9 +106,9 @@ exports.chefConfirm = async (req, res) => {
 exports.downloadAttestation = async (req, res) => {
 	const attestation = await attestationModel.findOne({ _id: req.params.id });
 	const ancadreur = await enseignantModel.findOne({ _id: attestation.ancadreur });
-	const chef = await attestationModel.findOne({ _id: attestation.chef_departement });
+	const chef = await enseignantModel.findOne({ _id: attestation.chef_departement });
 	const etudiant = await etudiantModel.findOne({ _id: attestation.etudiant });
-	const departement = await departementModel.findOne({ _id: attestation.departement })
+	const departement = await departementModel.findOne({ _id: attestation.departement });
 
 	if (attestation && ancadreur && chef && etudiant) {
 
@@ -127,7 +127,9 @@ exports.downloadAttestation = async (req, res) => {
 			templateHtml = templateHtml.replace("{{departement}}", departement.nom);
 			templateHtml = templateHtml.replace("{{Groupe}}", attestation.niveau);
 			templateHtml = templateHtml.replace("{{cin}}", etudiant.cin);
-			templateHtml = templateHtml.replace("{{Sousse}}", etudiant.date);
+			templateHtml = templateHtml.replace("{{num_inscrit}}", etudiant._id);
+			templateHtml = templateHtml.replace("{{Raison}}", "---");
+			templateHtml = templateHtml.replace("{{Sousse}}", etudiant.annee);
 			templateHtml = templateHtml.replace("{{signature_etudiant}}", `${etudiant.nom} ${etudiant.prenom}`);
 			templateHtml = templateHtml.replace("{{signature_encadreur}}", `${ancadreur.nom} ${ancadreur.prenom}`);
 			templateHtml = templateHtml.replace("{{signature_chef}}", `${chef.nom} ${chef.prenom}`);
