@@ -42,29 +42,35 @@ const sendEmail = (to, subject, text, html, attachments) => {
 };
 
 exports.postDemande = (req, res) => {
-	attestationModel.create(req.body, async (attestation, err) => {
+	attestationModel.create(req.body, async (err, attestation) => {
 		if (err) {
 			console.log(err);
 			res.json({ message: "demande d'attestation could not be created", status: 500, data: "" });
 		} else {
 
 			const ancadreur = await enseignantModel.findOne({ _id: attestation.ancadreur });
-			const chef_departement = await attestationModel.findOne({ _id: attestation.chef_departement })
+			const chef_departement = await enseignantModel.findOne({ _id: attestation.chef_departement });
 
-			sendEmail(
-				[ancadreur.email, chef_departement.email],
-				"demande d'attestation",
-				"demande d'attestation",
-				"<h1>You can send html formatted content using Nodemailer with attachments</h1>",
-				[]
-			)
-			.then(data => {
-				res.json({ message: "demande d'attestation created successfully", status: 201, data: attestation });
-			})
-			.catch(err => {
+			try {
+				await sendEmail(
+					chef_departement.email,
+					"demande d'attestation",
+					"demande d'attestation",
+					"confirmer l'attestation: http://localhost:3001/#/ChefDepAttestations",
+					[]
+				);
+				await sendEmail(
+					ancadreur.email,
+					"demande d'attestation",
+					"demande d'attestation",
+					"confirmer l'attestation: http://localhost:3001/#/AncadreurAttestations",
+					[]
+				);
+			} catch(err) {
 				console.log(err);
-				res.json({ message: "Unable to send mail", status: 500 });
-			});
+				return res.json({ message: "Unable to send mail", status: 500 });
+			}
+			
 		}
 	});
 };
@@ -79,7 +85,7 @@ exports.ancadreurConfirm = async (req, res) => {
 	if (attestation) {
 		attestation.confirmed_by_ancadreur = true;
 		await attestation.save();
-		console.log(attestation);
+		// console.log(attestation);
 		res.json({ status: 200, message: "attestation confirmed by ancadreur", data: attestation });
 	} else {
 		res.json({ status: 500, message: "attestation not found" });
