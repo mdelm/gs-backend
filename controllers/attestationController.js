@@ -125,14 +125,14 @@ exports.downloadAttestation = async (req, res) => {
 			templateHtml = templateHtml.replace("{{nom}}", etudiant.nom);
 			templateHtml = templateHtml.replace("{{prenom}}", etudiant.prenom);
 			templateHtml = templateHtml.replace("{{departement}}", departement.nom);
-			templateHtml = templateHtml.replace("{{Groupe}}", attestation.niveau);
+			templateHtml = templateHtml.replace("{{specialite}}", attestation.specialite);
 			templateHtml = templateHtml.replace("{{cin}}", etudiant.cin);
 			templateHtml = templateHtml.replace("{{num_inscrit}}", etudiant._id);
-			templateHtml = templateHtml.replace("{{Raison}}", "---");
-			templateHtml = templateHtml.replace("{{Sousse}}", etudiant.annee);
-			templateHtml = templateHtml.replace("{{signature_etudiant}}", `${etudiant.nom} ${etudiant.prenom}`);
-			templateHtml = templateHtml.replace("{{signature_encadreur}}", `${ancadreur.nom} ${ancadreur.prenom}`);
-			templateHtml = templateHtml.replace("{{signature_chef}}", `${chef.nom} ${chef.prenom}`);
+			templateHtml = templateHtml.replace("{{raison}}", "---");
+			templateHtml = templateHtml.replace("{{signature_encadreur}}", `http://localhost:3000/signature/${ancadreur.cin}`);
+			templateHtml = templateHtml.replace("{{signature_chef}}", `http://localhost:3000/signature/${chef.cin}`);
+			templateHtml = templateHtml.replace("{{cin_encadreur}}", ancadreur.cin);
+			templateHtml = templateHtml.replace("{{cin_chef}}", chef.cin);
 	
 			if (fs.existsSync(filename)) {
 				try {
@@ -142,8 +142,10 @@ exports.downloadAttestation = async (req, res) => {
 				}
 			}
 
-			const options = {};
+			const options = {
 
+			};
+		  
 		  pdf
 		  .create(templateHtml, options)
 		  .toFile(filename, function (err, pdf) {

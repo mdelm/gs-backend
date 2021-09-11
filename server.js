@@ -66,10 +66,14 @@ app.use("/entreprises", entrepriseRouter);
 app.use("/rapport", rapportRouter);
 app.use("/attestation", attestationRouter);
 
-
-app.get('/getfile/:image',function(req,res){
+app.get('/getfile/:image',function(req,res) {
     res.sendFile(__dirname + '/uploads/' + req.params.image) //get image
-})
+});
+
+app.get('/signature/:cin', function(req, res) {
+    res.sendFile(path.join(__dirname, "uploads", "singnatures", `${req.params.cin}.jpg`));
+});
+
 
 app.post('/create_pdf', (req, res) => {
     pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf', (err) => {

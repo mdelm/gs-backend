@@ -24,6 +24,18 @@
                      .body table {
                         padding: 32px;
                      }
+
+                     .body table td {
+                        padding-bottom: 12px;
+                     }
+
+                     /*.signature {
+                        width: 50%;
+                     }*/
+
+                     .signature .signature-img {
+                        width: 200px;
+                     }
                     </style>
                 </meta>
             </meta>
@@ -33,28 +45,12 @@
         <div class="page">
             <div class="header">
                 <div class="topHeader">
-                    <table>
-                        <tr>
-                            <td>
-                                République Tunisienne
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Ministère de l'Enseignement Supérieure et de la Recherche Scientifique
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                L'administration Générale des Etudes Technologiques
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Institut Supérieure des Etudes Technologiques de Sousse
-                            </td>
-                        </tr>
-                    </table>
+                    <p style="text-align: center;">
+                        République Tunisienne<br/>
+                        Ministère de l'Enseignement Supérieure et de la Recherche Scientifique<br/>
+                        L'administration Générale des Etudes Technologiques<br/>
+                        Institut Supérieure des Etudes Technologiques de Sousse<br/>
+                    </p>
                 </div>
                 <h1>
                     Demande d'attestation de présence
@@ -84,7 +80,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Groupe: <strong>{{Groupe}}</strong>
+                            Specialité: <strong>{{specialite}}</strong>
                         </td>
                     </tr>
                     <tr>
@@ -99,31 +95,22 @@
                     </tr>
                     <tr>
                         <td>
-                            Raison: <strong>{{Raison}}</strong>
+                            Raison: <strong>{{raison}}</strong>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            Sousse en: <strong>{{Sousse}}</strong>
-                        </td>
-                    </tr>
-                    <tr>
+                </table>
+                <br/><br/>
+                <table>
+                    <tr style="text-align: center;">
                         <td class="signature">
-                            Signature : <strong>{{signature_etudiant}}</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="signature">
-                            Signature d'encadreur
-                            <br>
-                                <strong>{{signature_encadreur}}</strong>
-                            </br>
+                            Signature d'encadreur :
+                            <img class="signature-img" src="{{signature_encadreur}}" />
+                            <p>CIN: {{cin_encadreur}}</p>
                         </td>
                         <td class="signature">
                             Signature de chef du Département :
-                            <br>
-                                <strong>{{signature_chef}}</strong>
-                            </br>
+                            <img class="signature-img" src="{{signature_chef}}" />
+                            <p>CIN: {{cin_chef}}</p>
                         </td>
                     </tr>
                 </table>
