@@ -18,7 +18,7 @@ const attestationModel = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "enseignant",
 	},
-	niveau: {
+	raison: {
 		type: String,
 		required: true,
 	},

@@ -128,7 +128,7 @@ exports.downloadAttestation = async (req, res) => {
 			templateHtml = templateHtml.replace("{{specialite}}", attestation.specialite);
 			templateHtml = templateHtml.replace("{{cin}}", etudiant.cin);
 			templateHtml = templateHtml.replace("{{num_inscrit}}", etudiant._id);
-			templateHtml = templateHtml.replace("{{raison}}", "---");
+			templateHtml = templateHtml.replace("{{raison}}", attestation.raison);
 			templateHtml = templateHtml.replace("{{signature_encadreur}}", `http://localhost:3000/signature/${ancadreur.cin}`);
 			templateHtml = templateHtml.replace("{{signature_chef}}", `http://localhost:3000/signature/${chef.cin}`);
 			templateHtml = templateHtml.replace("{{cin_encadreur}}", ancadreur.cin);
