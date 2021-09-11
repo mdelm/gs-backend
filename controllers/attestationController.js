@@ -166,3 +166,13 @@ exports.downloadAttestation = async (req, res) => {
 			res.json({ status: 500 });
 		}
 };
+
+exports.deleteAttestation = (req, res) => {
+	attestationModel.deleteOne({ _id: req.params.id }, function(err, result) {
+		if (!err) {
+			res.json({ message: 'error delete attestation', status:500, data: null });
+		} else {
+			res.json({ message: 'attestation is deleted', status:200, data: result });
+		}
+	})
+};

@@ -12,4 +12,6 @@ route.put("/confirm/chef", attestationController.chefConfirm);
 
 route.get("/download/:id", attestationController.downloadAttestation);
 
+route.delete("/:id", attestationController.deleteAttestation);
+
 module.exports = route;
