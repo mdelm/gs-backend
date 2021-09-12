@@ -67,6 +67,21 @@ module.exports={
         }
     },
 
+    changePassword: async function(req, res) {
+        const usr = await userModel.findOne({ _id: req.body._id });
+        if (usr) {
+            await usr.updateOne({
+                $set: {
+                    password: await bcrypt.hash(req.body.password, 12)
+                }
+            });
+
+            res.json({ message: "password changed successfully", status: 200, data: null });
+        } else {
+            res.json({ message: "failed to change password", status: 500, data: null });
+        }
+    },
+
     deleteUsers:function(req,res){
         userModel.deleteOne({_id: req.params.id},function(err,user){
             if(err){

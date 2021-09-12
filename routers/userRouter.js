@@ -13,6 +13,8 @@ route.put('/updateUser/:id',userController.updateUser)
 
 route.put('/v2/updateUser',userController.updateUserV2)
 
+route.put("/changepassword", userController.changePassword);
+
 route.delete('/UserdeleteById/:id', userController.deleteUsers)
 
 route.delete('/DeleteAll', userController.deleteAll)
