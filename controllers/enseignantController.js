@@ -65,6 +65,20 @@ module.exports={
             }
         })
     },
+
+    uploadSignature: function(req, res) {
+        try {
+            const file = req.signature;
+            if (!file) {
+                return res.json({ status: 400, message: "No File" });
+            } else {
+                res.json({ status: 200, message: "Signature uploaded successfully" });
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
     login: function (req, res, next) {
         enseignantModel.findOne({
             cin: req.body.cin

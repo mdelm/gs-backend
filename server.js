@@ -71,7 +71,7 @@ app.get('/getfile/:image',function(req,res) {
 });
 
 app.get('/signature/:cin', function(req, res) {
-    res.sendFile(path.join(__dirname, "uploads", "singnatures", `${req.params.cin}.jpg`));
+    res.sendFile(path.join(__dirname, "uploads", "signatures", `${req.params.cin}.jpg`));
 });
 
 
