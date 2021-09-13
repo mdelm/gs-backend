@@ -27,7 +27,6 @@ exports.uploadRapport = async (req, res) => {
 					console.log(err);
 					res.json({ status: 500 });
 				} else {
-					// console.log(rapport);
 					return res.json({ status: 201, message: "File uploaded successfully", data: rapport });
 				}
 			});
@@ -69,7 +68,6 @@ exports.downloadRapport = async (req, res) => {
 			console.log(err);
 			res.json({ status: 500 })
 		} else {
-			// console.log("hello>> " + rapport.filename);
 			const filepath = path.join(__dirname, "..", "uploads", "rapports", rapport.filename);
 			res.sendFile(filepath);
 		}
