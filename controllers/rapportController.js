@@ -39,6 +39,20 @@ exports.uploadRapport = async (req, res) => {
 	}
 };
 
+exports.getRapportByStage = async (req, res) => {
+	try {
+		const result = await rapportModel.findOne({ stage: req.params.stageId });
+		if (result) {
+			return res.json({ status: 200, data: result });
+		}
+
+		res.json({ status: 404, message: "rapport not found", data: null });
+	} catch(err) {
+		console.log(err);
+		res.json({ status: 500, data: null });
+	}
+};
+
 exports.getRapports = async (req, res) => {
 	try {
 		const result = await rapportModel.find();
@@ -50,12 +64,13 @@ exports.getRapports = async (req, res) => {
 };
 
 exports.downloadRapport = async (req, res) => {
-	rapportModel.findOne((rapport, err) => {
+	rapportModel.findOne((err, rapport) => {
 		if (err) {
 			console.log(err);
 			res.json({ status: 500 })
 		} else {
-			const filepath = `./uploads/${rapport.filename}`;
+			// console.log("hello>> " + rapport.filename);
+			const filepath = path.join(__dirname, "..", "uploads", "rapports", rapport.filename);
 			res.sendFile(filepath);
 		}
 	});

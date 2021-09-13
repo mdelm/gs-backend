@@ -7,7 +7,7 @@ const mime = require('mime-types')
 
 const upload = multer({ storage: multer.diskStorage({
 	destination: (req, file, callback) => {
-    callback(null, "./uploads");
+    callback(null, "./uploads/rapports/");
   },
   filename: (req, file, callback) => {
     callback(null, `${uniqueString()}.${mime.extension(file.mimetype)}`);
@@ -18,6 +18,8 @@ const upload = multer({ storage: multer.diskStorage({
 route.post("/upload", upload.single("file"), rapportController.uploadRapport);
 
 route.get("/all", rapportController.getRapports);
+
+route.get("/bystage/:stageId", rapportController.getRapportByStage);
 
 route.get("/download/:rapportId", rapportController.downloadRapport);
 

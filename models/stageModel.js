@@ -66,8 +66,8 @@ const stageModel = new Schema({
 			type: Schema.Types.ObjectId,
 			ref: "enseingnant"
 		}],
-		repport_pdf: {
-			type: String
+		rapport: {
+			type: String,
 		},
 		page_de_garde: {
 			type: String
