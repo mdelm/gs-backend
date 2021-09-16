@@ -259,6 +259,19 @@ exports.getMoyenneGenerale = async (req, res) => {
 						moyenne_generale: nt[e].moyenne_generale,
 						deliberation: nt[e].deliberation
 					});
+				} else {
+					moyenneGeneraleModel.updateOne({ _id: moyenneGen._id }, {
+						matricule: nt[e].etudiant.matricule,
+						nom: nt[e].etudiant.nom,
+						prenom: nt[e].etudiant.prenom,
+						etudiant: nt[e].etudiant._id,
+						classe: req.params.nom_classe,
+						annee_universitaire: "2020/2021",
+						note_semestre1: nt[e].note_semestre1,
+						note_semestre2: nt[e].note_semestre2,
+						moyenne_generale: nt[e].moyenne_generale,
+						deliberation: nt[e].deliberation
+					});
 				}
 			}
 		}
